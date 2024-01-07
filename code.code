@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+void left(BinaryTreeNode<int>* root,int l, vector<int> &ans){
+    if(!root)return ;
+    if(l==ans.size())ans.push_back(root->data);
+    if(root->left)left(root->left, l+1, ans);
+    if(root->right)left(root->right, l+1, ans);
+}
+vector<int> printLeftView(BinaryTreeNode<int>* root) {
+    // Write your code here.
+    vector<int> ans;
+    left(root, 0, ans);
+    return ans;
+}
+
+void right(TreeNode * root,int l,  vector<int> &ans,map<int,int>&m){
+        if(!root)return ;
+        if(m.find(l)==m.end()){m[l]=0;ans.push_back(root->val);}
+        //or you ca do
+        //if(l==ans.size())ans.push_back(root->val);
+        if(root->right)right(root->right,l+1,ans,m);
+        if(root->left)right(root->left,l+1,ans,m);
+    }
+    vector<int> rightSideView(TreeNode* root) {
+        vector<int> ans;
+        map<int,int> m;
+        right(root,0,ans,m);
+        return ans;
+    }
